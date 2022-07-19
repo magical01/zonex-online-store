@@ -13,6 +13,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_slider_catalog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/slider-catalog */ "./src/js/components/slider-catalog.js");
 /* harmony import */ var _components_product_purchaised__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/product-purchaised */ "./src/js/components/product-purchaised.js");
 /* harmony import */ var _components_product_purchaised__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_product_purchaised__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_catalog_filter_toggle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/catalog-filter-toggle */ "./src/js/components/catalog-filter-toggle.js");
+/* harmony import */ var _components_catalog_filter_toggle__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_components_catalog_filter_toggle__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -130,6 +133,27 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/js/components/catalog-filter-toggle.js":
+/*!****************************************************!*\
+  !*** ./src/js/components/catalog-filter-toggle.js ***!
+  \****************************************************/
+/***/ (() => {
+
+const catalogFiltersTop = document.querySelectorAll('.catalog-filter__top');
+const hideFilters = document.querySelector('.hide-filters');
+catalogFiltersTop.forEach(elem => {
+  elem.addEventListener('click', event => {
+    event.currentTarget.closest('.catalog-filter').classList.toggle('catalog-filter--open');
+  });
+});
+hideFilters.addEventListener('click', event => {
+  catalogFiltersTop.forEach(elem => {
+    elem.closest('.catalog-filter').classList.remove('catalog-filter--open');
+  });
+});
+
+/***/ }),
+
 /***/ "./src/js/components/product-purchaised.js":
 /*!*************************************************!*\
   !*** ./src/js/components/product-purchaised.js ***!
@@ -137,41 +161,45 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (() => {
 
 const product = document.querySelector('.product-purchased');
-let count = 0;
-let delay = 4000;
-const data = [{
-  title: 'Title of product 1',
-  from: 'Norway, Oslo'
-}, {
-  title: 'Title of product 2',
-  from: 'Germany, Berlin'
-}, {
-  title: 'Title of product 3',
-  from: 'Russia, Moscow'
-}];
-product.addEventListener('click', event => {
-  if (event.target.classList.contains('product-purchased__close')) {
-    closeProduct();
-  }
-});
 
-function closeProduct() {
-  product.classList.add('product-purchased--hidden');
-}
+if (product) {
+  let count = 0;
+  let delay = 4000;
+  const data = [{
+    title: 'Title of product 1',
+    from: 'Norway, Oslo'
+  }, {
+    title: 'Title of product 2',
+    from: 'Germany, Berlin'
+  }, {
+    title: 'Title of product 3',
+    from: 'Russia, Moscow'
+  }];
+  product.addEventListener('click', event => {
+    if (event.target.classList.contains('product-purchased__close')) {
+      closeProduct();
+    }
+  });
 
-function changeProductPurchased() {
-  product.classList.remove('product-purchased--hidden');
-  setTimeout(() => {
+  function closeProduct() {
     product.classList.add('product-purchased--hidden');
-  }, delay - 2000);
-  const strTitle = "".concat(data[count].title);
-  const strFrom = "15 minutes ago ".concat(data[count].from);
-  product.querySelector('.product-purchased__title').textContent = strTitle;
-  product.querySelector('.product-purchased__from').textContent = strFrom;
-  count++;
-  if (count === data.length) count = 0;
-} // changeProductPurchased();
-// setInterval(changeProductPurchased, delay)
+  }
+
+  function changeProductPurchased() {
+    product.classList.remove('product-purchased--hidden');
+    setTimeout(() => {
+      product.classList.add('product-purchased--hidden');
+    }, delay - 2000);
+    const strTitle = "".concat(data[count].title);
+    const strFrom = "15 minutes ago ".concat(data[count].from);
+    product.querySelector('.product-purchased__title').textContent = strTitle;
+    product.querySelector('.product-purchased__from').textContent = strFrom;
+    count++;
+    if (count === data.length) count = 0;
+  } // changeProductPurchased();
+  // setInterval(changeProductPurchased, delay)
+
+}
 
 /***/ }),
 
